@@ -1,0 +1,12 @@
+{% extends "shop/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{{product.name}}
+<p>Total: {{product.price}}</p>
+<form method="POST">
+  {% csrf_token %}
+  {{ form|crispy }}
+<button class="btn btn-dark btn-lg">Submit Order</button>
+</form>
+{% endblock %}
