@@ -19,10 +19,11 @@ def checkout(request, id, slug):
         form = CheckoutForm(request.POST)
         if form.is_valid():
             product = get_object_or_404(Product, id=id, available=True)
-
             order = form.save(commit = False)
             order.product = product
             order.save()
+            product.stock -= 1
+            product.save()
             return render(request, 'shop/orders/ordercomplete.html',
             {'product': product, 'order': order})
     else:
